@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
-import { placeholderAPI } from './JSON PlaceholdeAPI';
+import { placeholderAPI } from './JSONPlaceholdeAPI';
 import { createMarkup } from './markup';
 const searchBtnEl = document.querySelector('.search-btn');
 const searchQueryEl = document.getElementsByName('searchQuery');
@@ -15,7 +15,7 @@ placeholderInstance
   .fetchPhoto()
   .then(data => {
     console.log(data.hits);
-    postsWrapperEl.innerHTML = createMarkup(data);
+    postsWrapperEl.innerHTML = createMarkup();
   })
   .catch(err => {
     console.log(err);
@@ -40,21 +40,21 @@ placeholderInstance
 //   });
 // }
 
-// const getImgByTeg = async tag => {
-//   try {
-//     const response = await axios.get(`${BASE_URL}`, options);
-//     return console.log(response);
-//   } catch {
-//     Notiflix.Notify.failure(err.massege);
-//   }
-// };
+const getImgByTeg = async tag => {
+  try {
+    const response = await axios.get(`${BASE_URL}`, options);
+    return console.log(response);
+  } catch {
+    Notiflix.Notify.failure(err.massege);
+  }
+};
 
-// let imgData = response.data.hits.map(hit => {
-//   webformatURL: hit.webformatURL;
-//   largeImageURL: hit.largeImageURL;
-//   comments: hit.comments;
-//   views: hit.views;
-//   downloads: hit.downloads;
-//   likes: hit.likes;
-//   tags: hit.tags;
-// });
+let imgData = response.data.hits.map(hit => {
+  webformatURL: hit.webformatURL;
+  largeImageURL: hit.largeImageURL;
+  comments: hit.comments;
+  views: hit.views;
+  downloads: hit.downloads;
+  likes: hit.likes;
+  tags: hit.tags;
+});

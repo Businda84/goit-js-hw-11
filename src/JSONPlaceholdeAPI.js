@@ -2,10 +2,10 @@ import axios from 'axios';
 
 const BASE_URL =
   'https://pixabay.com/api/?key=38109927-58adaea0db8d57035fe4e4e71';
-
+tagIMG = '';
 const options = {
   method: 'GET',
-  key: API_KEY,
+
   q: tagIMG,
   image_type: 'photo',
   orientation: 'horizontal',
