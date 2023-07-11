@@ -1,9 +1,20 @@
-'use strict';
-import Notiflix from 'notiflix';
-// import axios from 'axios';
+import axios from 'axios';
+
 const BASE_URL =
   'https://pixabay.com/api/?key=38109927-58adaea0db8d57035fe4e4e71';
 
+const options = {
+  method: 'GET',
+  key: API_KEY,
+  q: tagIMG,
+  image_type: 'photo',
+  orientation: 'horizontal',
+  per_page: 40,
+  safesearch: 'true',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+};
 // export class placeholderAPI {
 //   fetchPhoto = async tag => {
 //     try {
@@ -18,7 +29,7 @@ const BASE_URL =
 export class placeholderAPI {
   page = 1;
   fetchPhoto() {
-    return fetch(`${BASE_URL}`).then(res => {
+    return fetch(`${BASE_URL}`, options).then(res => {
       if (!res.ok) {
         throw new Error(res.status);
       }

@@ -18,7 +18,7 @@ export function createMarkup(results) {
       <p class="info-item">
         <b>Likes: ${likes}</b>
       </p>
-      <p class="info-item">
+      <p class="info-item">  
         <b>Views: ${views}</b>
       </p>
       <p class="info-item">

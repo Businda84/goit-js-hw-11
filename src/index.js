@@ -4,12 +4,11 @@ import { placeholderAPI } from './JSON PlaceholdeAPI';
 import { createMarkup } from './markup';
 const searchBtnEl = document.querySelector('.search-btn');
 const searchQueryEl = document.getElementsByName('searchQuery');
-const btnLoadMoreEl = document.querySelector('.load-more');
+const btnLoadMoreEl = document.querySelector('load-more');
 const searchFormEl = document.querySelector('#search-form');
 const postsWrapperEl = document.querySelector('.js-posts');
 const galleryEl = document.querySelector('.gallery-section');
 const totalHits = '';
-btnLoadMoreEl.style.display = 'none';
 
 const placeholderInstance = new placeholderAPI();
 placeholderInstance
@@ -22,17 +21,6 @@ placeholderInstance
     console.log(err);
   });
 
-// const options = {
-//   method: 'GET',
-//   key: API_KEY,
-//   q: tagIMG,
-//   image_type: 'photo',
-//   orientation: 'horizontal',
-//   per_page: 40,
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-// };
 // searchFormEl.addEventListener('submit', searchImgByTag);
 
 // function searchImgByTag(event) {
