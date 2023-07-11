@@ -21,24 +21,24 @@ placeholderInstance
     console.log(err);
   });
 
-// searchFormEl.addEventListener('submit', searchImgByTag);
+searchFormEl.addEventListener('submit', searchImgByTag);
 
-// function searchImgByTag(event) {
-//   event.preventDefault();
-//   const { searchQuery } = event.currentTarget.elements;
-//   SearchPhoto = searchQuery.value.trim().toLowerCase();
-//   // console.log(SearchPhoto);
-//   if (SearchPhoto === '') {
-//     Notiflix.info('Enter your request!');
-//     return;
-//   }
-//   console.log(SearchPhoto);
-//   getImgByTeg().then(res => {
-//     const data = res.data;
-//     console.log(res.data);
-//     return data;
-//   });
-// }
+function searchImgByTag(event) {
+  event.preventDefault();
+  const { searchQuery } = event.currentTarget.elements;
+  SearchPhoto = searchQuery.value.trim().toLowerCase();
+  // console.log(SearchPhoto);
+  if (SearchPhoto === '') {
+    Notiflix.info('Enter your request!');
+    return;
+  }
+  console.log(SearchPhoto);
+  getImgByTeg().then(res => {
+    const data = res.data;
+    console.log(res.data);
+    return data;
+  });
+}
 
 const getImgByTeg = async tag => {
   try {
