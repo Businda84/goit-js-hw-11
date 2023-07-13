@@ -8,21 +8,15 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <section class="gallery-section">
-      <div class="container">
-        <form class="search-form" id="search-form">
-          <input
-            type="text"
-            name="searchQuery"
-            autocomplete="off"
-            placeholder="Search images..."
-          />
-          <button name="search-btn" type="submit">Search</button>
-        </form>
-        <ul class="gallery js-gallery list"></ul>
-        <div class="target-element"></div>
-      </div>
-    </section>
+    <form class="search-form" id="search-form">
+      <input
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button type="submit">Search</button>
+    </form>
     <div class="gallery"></div>
     <button type="button" class="load-more">Load more</button>
   </body>
