@@ -25,23 +25,27 @@ function searchImgByTag(event) {
   const { searchQuery } = event.currentTarget.elements;
 
   tag = searchQuery.value.trim();
-  console.log(tag);
 
   let searchByTag = '';
 
+  btnLoadMoreEl.style.display = 'none';
   searchByTag = tag;
-  console.log(tag);
+  console.log(searchByTag);
   galleryEl.innerHTML = '';
   searchQuery.value = '';
+  if (tag === '') {
+    Notiflix.Notify.failure('Enter a query');
+    return;
+  }
+  if (searchByTag === '') {
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again'
+    );
+    return;
+  }
   requestAPI(searchByTag)
     .then(data => {
       console.log(data);
-      if (data.totalHits === 0) {
-        return Notiflix.Notify.failure(
-          "We're sorry, but nothing was found for your search."
-        );
-        btnLoadMoreEl.style.display = 'none';
-      }
 
       btnLoadMoreEl.style.display = 'block';
       createMarkup(data.hits);
@@ -92,19 +96,10 @@ function createMarkup(data) {
 const handlClick = async () => {
   page += 1;
   try {
-    if (page === data.totalHits) {
-      Notiflix.Notify.failure(
-        "We're sorry, but you've reached the end of search results."
-      );
-      btnLoadMoreEl.style.display = 'none';
-    }
-
-    galleryEl.insertAdjacentHTML('beforeend', createMarkup(data));
+    const data = await requestAPI();
+    galleryEl.insertAdjacentHTML('beforeend', markup(data));
   } catch {
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-    btnLoadMoreEl.style.display = 'none';
+    throw new Error();
   }
 };
 searchFormEl.addEventListener('submit', searchImgByTag);
