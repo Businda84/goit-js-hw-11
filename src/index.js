@@ -43,6 +43,7 @@ function searchImgByTag(event) {
     );
     return;
   }
+
   requestAPI(searchByTag)
     .then(data => {
       console.log(data);
@@ -53,6 +54,8 @@ function searchImgByTag(event) {
     .catch(err => {
       console.log(err.message);
     });
+
+  btnLoadMoreEl.style.display = 'none';
 }
 
 function createMarkup(data) {
@@ -100,6 +103,9 @@ const handlClick = async () => {
     galleryEl.insertAdjacentHTML('beforeend', markup(data));
   } catch {
     throw new Error();
+  }
+  if (page > total / hits) {
+    btnLoadMoreEl.style.display = 'none';
   }
 };
 searchFormEl.addEventListener('submit', searchImgByTag);
