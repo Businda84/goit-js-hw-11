@@ -9,7 +9,7 @@ const btnLoadMoreEl = document.querySelector('.load-more');
 const searchFormEl = document.querySelector('#search-form');
 const searchQueryEl = document.getElementsByName('searchQuery');
 const postsWrapperEl = document.querySelector('.js-posts');
-const galleryEl = document.querySelector('.gallery');
+const galleryEl = document.querySelector('.gallery-list');
 let page = 1;
 let tag;
 btnLoadMoreEl.style.display = 'none';
