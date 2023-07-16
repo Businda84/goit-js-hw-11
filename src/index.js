@@ -11,42 +11,42 @@ const searchQueryEl = document.getElementsByName('searchQuery');
 const postsWrapperEl = document.querySelector('.js-posts');
 const galleryEl = document.querySelector('.gallery-list');
 let page = 1;
-let tag;
+let inputValue;
+let totalPages = 0;
 btnLoadMoreEl.style.display = 'none';
+let totalHits = 0;
 // const instance = basicLightbox.create(`
 //     <img src="assets/images/image.png" width="800" height="600">
 // `);
 
 // instance.show();
-console.log(btnLoadMoreEl);
 
 function searchImgByTag(event) {
   event.preventDefault();
   const { searchQuery } = event.currentTarget.elements;
 
-  tag = searchQuery.value.trim();
-
-  let searchByTag = '';
-
-  btnLoadMoreEl.style.display = 'none';
-  searchByTag = tag;
-  console.log(searchByTag);
+  inputValue = searchQuery.value.trim();
+  // console.log(event.target.elements.searchQuery.value);
   galleryEl.innerHTML = '';
   searchQuery.value = '';
-  if (tag === '') {
+  if (inputValue === '') {
     Notiflix.Notify.failure('Enter a query');
     return;
   }
-  if (searchByTag === '') {
-    Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again'
-    );
-    return;
-  }
 
-  requestAPI(searchByTag)
+  requestAPI(inputValue, page)
     .then(data => {
-      console.log(data);
+      console.log(data.hits.length);
+      if (data.hits.length === 0) {
+        Notiflix.Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again'
+        );
+        btnLoadMoreEl.style.display = 'none';
+        return;
+      }
+      if (data.hits.length <= 40) {
+        btnLoadMoreEl.style.display = 'none';
+      }
 
       btnLoadMoreEl.style.display = 'block';
       createMarkup(data.hits);
@@ -54,8 +54,6 @@ function searchImgByTag(event) {
     .catch(err => {
       console.log(err.message);
     });
-
-  btnLoadMoreEl.style.display = 'none';
 }
 
 function createMarkup(data) {
@@ -96,17 +94,29 @@ function createMarkup(data) {
   galleryEl.insertAdjacentHTML('beforeend', markup);
 }
 
-const handlClick = async () => {
+const handleClick = async () => {
   page += 1;
+
   try {
-    const data = await requestAPI();
+    const { hits, totalHits } = await requestAPI(inputValue, page);
+    createMarkup(hits);
     galleryEl.insertAdjacentHTML('beforeend', markup(data));
-  } catch {
-    throw new Error();
+  } catch (error) {
+    console.log(error);
   }
-  if (page > total / hits) {
+  if (totalHits.length === 0) {
+    Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
     btnLoadMoreEl.style.display = 'none';
+    return;
+  }
+  if (page === Math.ceil(totalHits / 40)) {
+    btnLoadMoreEl.style.display = 'none';
+    Notiflix.Notify.info(
+      "We're sorry, but you've reached the end of search results."
+    );
   }
 };
 searchFormEl.addEventListener('submit', searchImgByTag);
-btnLoadMoreEl.addEventListener('click', handlClick);
+btnLoadMoreEl.addEventListener('click', handleClick);
