@@ -36,6 +36,7 @@ function searchImgByTag(event) {
 
   requestAPI(inputValue, page)
     .then(data => {
+      btnLoadMoreEl.style.display = 'block';
       console.log(data.hits.length);
       if (data.hits.length === 0) {
         Notiflix.Notify.failure(
@@ -44,12 +45,13 @@ function searchImgByTag(event) {
         btnLoadMoreEl.style.display = 'none';
         return;
       }
+
+      createMarkup(data.hits);
+
       if (data.hits.length <= 40) {
         btnLoadMoreEl.style.display = 'none';
+        return;
       }
-
-      btnLoadMoreEl.style.display = 'block';
-      createMarkup(data.hits);
     })
     .catch(err => {
       console.log(err.message);
