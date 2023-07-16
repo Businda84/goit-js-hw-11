@@ -2,6 +2,7 @@ import axios from 'axios';
 import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+
 import * as basicLightbox from 'basiclightbox';
 import { requestAPI } from './requestAPI';
 
@@ -71,7 +72,7 @@ function createMarkup(data) {
         likes,
       }) => {
         const card = `<div class="photo-card">
-      <a href="${largeImageURL}">
+      <a class="gallery-itam" href="${largeImageURL}">
         <img class="image" src="${webformatURL}" alt="${tags}" loading="lazy"/>
         <div class="info">
           <p class="info-item">
@@ -122,3 +123,10 @@ const handleClick = async () => {
 };
 searchFormEl.addEventListener('submit', searchImgByTag);
 btnLoadMoreEl.addEventListener('click', handleClick);
+let galleryShow = new SimpleLightbox('.gallery-container a', {
+  captions: true,
+  captionsData: 'alt',
+  captionDelay: 250,
+  captionPosition: 'bottom',
+});
+galleryShow.refresh();
